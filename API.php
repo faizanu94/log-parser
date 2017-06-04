@@ -21,7 +21,7 @@ class API {
 		array_push($this->dyno, $APIdata['dyno']);
 		$this->method = $APIdata['method'];
 		$this->hits = 1;
-		$this->responseTime = ($APIdata['service']);
+		$this->responseTime = ($APIdata['connect'] + $APIdata['service']);
 	}
 
 	public function updateAPIData($APIdata) {
@@ -29,7 +29,7 @@ class API {
 			array_push($this->users, $matches[0]);
 		array_push($this->dyno, $APIdata['dyno']);
 		$this->hits++;
-		$this->responseTime += ($APIdata['service']/count($this->dyno));
+		$this->responseTime += ( ($APIdata['connect']+$APIdata['service']) / $this->hits );
 	}
 
 	public function getActiveUser() {
